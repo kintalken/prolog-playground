@@ -1,0 +1,52 @@
+
+# fixtures
+
+## prolog-playground/fixtures
+
+### add an new project to the playground :: an example
+
+```
+# /media/kintalken/prolog-playground
+$ git branch tarai
+$ git checkout tarai
+Switched to branch 'tarai'
+$ mkdir tarai
+$ cd tarai
+```
+```
+# /media/kintalken/prolog-playground/tarai
+$ make -f ../fixtures/Makefile
+```
+```
+PROJECT_NAME=tarai
+swipl -l tests/suite.prolog -g 'run_tests,halt'
+ERROR: /media/kintalken/prolog-playground/tarai/src/suite.prolog:2:
+	source_sink `'./parts/tarai.prolog'' does not exist
+Warning: /media/kintalken/prolog-playground/tarai/src/suite.prolog:2:
+	Goal (directive) failed: user:['./parts/tarai.prolog']
+ERROR: /media/kintalken/prolog-playground/tarai/tests/suite.prolog:4:
+	source_sink `'./parts/tarai.prolog'' does not exist
+Warning: /media/kintalken/prolog-playground/tarai/tests/suite.prolog:4:
+	Goal (directive) failed: user:['./parts/tarai.prolog']
+% No tests to run
+gpp -x README.adoc.in > README.adoc
+README.adoc.in:15: error: Requested include file not found
+make: *** [../fixtures/Makefile:40: README.adoc] Error 1
+```
+```
+# /media/kintalken/prolog-playground/tarai
+$ tree
+.
+├── Makefile
+├── README.adoc
+├── README.adoc.in
+├── src
+│   ├── parts
+│   └── suite.prolog
+└── tests
+    ├── parts
+    └── suite.prolog
+
+4 directories, 5 files
+```
+
