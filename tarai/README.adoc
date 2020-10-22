@@ -1,0 +1,341 @@
+
+# tarai
+
+## prolog-playground/tarai
+
+_the tarai algorithm serves as demonstration of the 
+importance of first-argument indexing in Prolog_ .
+
+### the tarai algorithm in C language
+
+#### source
+
+###### src/parts/tarai__imperativ.c 
+```
+
+int tarai__impertiv(int X, int Y, int Z)
+{
+	for (;;)
+	{
+		if (X <= Y)
+		{
+			return Y ;
+		}
+		else
+		{
+			int temp1 = tarai(X - 1, Y, Z) ;
+			int temp2 = tarai(Y - 1, Z, X) ;
+			int temp3 = tarai(Z - 1, X, Y) ;
+			X = temp1 ;
+			Y = temp2 ;
+			Z = temp3 ;
+		}
+	}
+}
+```
+
+### the tarai algorithm in Prolog language
+
+#### source
+
+###### src/parts/tarai__cut.prolog 
+```
+
+tarai__cut(X,Y,_,R)
+:-
+X < Y ,
+! ,
+R = Y
+.
+
+tarai__cut(X,Y,_,R)
+:-
+X = Y ,
+! ,
+R = Y
+.
+
+tarai__cut(X,Y,Z,R)
+:-
+X > Y ,
+! ,
+X1 is X - 1 , tarai__cut(X1,Y,Z,RX) ,
+Y1 is Y - 1 , tarai__cut(Y1,Z,X,RY) ,
+Z1 is Z - 1 , tarai__cut(Z1,X,Y,RZ) ,
+tarai__cut(RX,RY,RZ,R) .
+```
+
+#### demo
+
+```
+?- CALL=(tarai__cut(12,6,0,R) , R == 12) , time(CALL) .
+% 28,360,939 inferences, 1.606 CPU in 1.618 seconds (99% CPU, 17663605 Lips)
+CALL =  (tarai__cut(12, 6, 0, 12), 12==12),
+R = 12.
+```
+
+#### performance
+
+|=========================================
+| *name*             | *time* | *percent*
+| tarai__cut         |  1.606 |      100%
+|=========================================
+
+### the tarai algorithim without the cut
+
+#### source
+
+###### src/parts/tarai__cutless.prolog 
+```
+
+tarai__cutless(X,Y,_,R)
+:-
+X < Y ,
+%! ,
+R = Y
+.
+
+tarai__cutless(X,Y,_,R)
+:-
+X = Y ,
+%! ,
+R = Y
+.
+
+tarai__cutless(X,Y,Z,R)
+:-
+X > Y ,
+%! ,
+X1 is X - 1 , tarai__cut(X1,Y,Z,RX) ,
+Y1 is Y - 1 , tarai__cut(Y1,Z,X,RY) ,
+Z1 is Z - 1 , tarai__cut(Z1,X,Y,RZ) ,
+tarai__cutless(RX,RY,RZ,R) .
+```
+
+#### demo
+
+```
+?- CALL=(tarai__cutless(12,6,0,R) , R == 12) , time(CALL) .
+Out of stack space.
+```
+
+#### performance comparison
+
+|=========================================
+| *name*             | *time* | *percent*
+| tarai__cut         |  1.606 |      100%	
+| tarai__cutless     |    n/a |        ∞%	
+|=========================================
+
+#### exposition
+
+What happened ?
+
+Why did the stack run out of space ?
+The stack ran out of space because without the cut `!` 
+there are many choice-points left open
+whilst `tarai__cutless/4` recursively calls itself .
+
+In the next section the code is modified to take advantage of first-argument indexing .
+
+### the tarai algorithim with first-argument indexing , part 1 .
+
+#### exposition
+
+If clauses of an predicate are
+mutually exclusive on the first argument then
+Prolog can prune away choice-points .
+
+Thus if our funktion can call itself with each clause
+differentiated by an unique first-argument 
+then perhaps the lack of open choice-points will
+provide better performance .
+
+#### source
+
+###### src/parts/tarai__firstarg1.prolog 
+```
+
+tarai__firstarg1(X,Y,Z,R)
+:-
+prolog:compare(C,X,Y) ,
+tarai__firstarg1(C,X,Y,Z,R)
+.
+
+tarai__firstarg1('<',_,Y,_,R)
+:-
+R = Y
+.
+
+tarai__firstarg1('=',_,Y,_,R)
+:-
+R = Y
+.
+
+tarai__firstarg1('>',X,Y,Z,R)
+:-
+X1 is X - 1 , tarai__firstarg1(X1,Y,Z,RX) ,
+Y1 is Y - 1 , tarai__firstarg1(Y1,Z,X,RY) ,
+Z1 is Z - 1 , tarai__firstarg1(Z1,X,Y,RZ) ,
+tarai__firstarg1(RX,RY,RZ,R)
+.
+
+```
+
+#### demo
+
+```
+?- CALL=(tarai__firstarg1(12,6,0,R) , R == 12) , time(CALL).
+% 37,814,585 inferences, 1.648 CPU in 1.659 seconds (99% CPU, 22946727 Lips)
+CALL =  (tarai__firstarg1(12, 6, 0, 12), 12==12),
+R = 12.
+```
+
+#### performance comparison
+
+|=========================================
+| *name*             | *time* | *percent*
+| tarai__cut	     |  1.606 |      100%	
+| tarai__cutless     |    n/a |        ∞%	
+| tarai__firstarg1   |  1.648 |      102%	
+|=========================================
+
+### the tarai algorithim with first-argument indexing , part 2 .
+
+#### exposition
+
+"tail-call optimization" occurs when
+the last call an funktion makes is to itself .
+What is "itself" ? "itself" is any funktion with
+the same name and the same arity .
+What is "arity" ? "arity" means the count of how many arguments there are .
+
+This modication means that
+the last call made in the funktion is
+now making the call to itself .
+
+Prolog takes advantage of this strongly
+by avoiding upon recursion the
+full-blown overhead and stack allocation of an proper funktion call ;
+instead performing something more like an goto .
+
+#### source
+
+###### src/parts/tarai__firstarg2.prolog 
+```
+
+tarai__firstarg2(X,Y,Z,R)
+:-
+prolog:compare(C,X,Y) ,
+tarai__firstarg2(C,X,Y,Z,R)
+.
+
+tarai__firstarg2('<',_,Y,_,R)
+:-
+R = Y
+.
+
+tarai__firstarg2('=',_,Y,_,R)
+:-
+R = Y
+.
+
+tarai__firstarg2('>',X,Y,Z,R)
+:-
+X1 is X - 1 , tarai__firstarg2(X1,Y,Z,RX) ,
+Y1 is Y - 1 , tarai__firstarg2(Y1,Z,X,RY) ,
+Z1 is Z - 1 , tarai__firstarg2(Z1,X,Y,RZ) ,
+prolog:compare(C4,RX,RY) , tarai__firstarg2(C4,RX,RY,RZ,R)
+.
+
+```
+
+#### demo
+
+```
+?- CALL=(tarai__firstarg2(12,6,0,R) , R == 12) , time(CALL).
+% 34,663,370 inferences, 1.588 CPU in 1.602 seconds (99% CPU, 21220533 Lips)
+CALL =  (tarai__firstarg2(12, 6, 0, 12), 12==12),
+R = 12.
+```
+
+#### performance comparison
+
+|=========================================
+| *name*             | *time* | *percent*
+| tarai__cut	     |  1.606 |      100%	
+| tarai__cutless     |    n/a |        ∞%	
+| tarai__firstarg1   |  1.648 |      102%	
+| tarai__firstarg2   |  1.588 |       99%	
+|=========================================
+
+### the tarai algorithim with first-argument indexing , part 3 .
+
+In `tarai__firstarg2` performance gains were obtained by
+taking advantage of tail-call optimization .
+
+In `tarai_firstarg3` it is demonstrated that optimization occurs for
+every call from an funktion to itself .
+
+#### source
+
+###### src/parts/tarai__firstarg3.prolog 
+```
+
+tarai__firstarg3(X,Y,Z,R)
+:-
+prolog:compare(C,X,Y) ,
+tarai__firstarg3(C,X,Y,Z,R)
+.
+
+tarai__firstarg3('<',_,Y,_,R)
+:-
+R = Y
+.
+
+tarai__firstarg3('=',_,Y,_,R)
+:-
+R = Y
+.
+
+tarai__firstarg3('>',X,Y,Z,R)
+:-
+X1 is X - 1 , prolog:compare(C1,X1,Y) , tarai__firstarg3(C1,X1,Y,Z,RX) ,
+Y1 is Y - 1 , prolog:compare(C2,Y1,Z) , tarai__firstarg3(C2,Y1,Z,X,RY) ,
+Z1 is Z - 1 , prolog:compare(C3,Z1,X) , tarai__firstarg3(C3,Z1,X,Y,RZ) ,
+prolog:compare(C4,RX,RY) , tarai__firstarg3(C4,RX,RY,RZ,R)
+.
+
+```
+
+#### demo
+
+```
+?- CALL=(tarai__firstarg3(12,6,0,R) , R == 12) , time(CALL).
+% 25,209,725 inferences, 1.459 CPU in 1.471 seconds (99% CPU, 17274493 Lips)
+CALL =  (tarai__firstarg3(12, 6, 0, 12), 12==12),
+R = 12.
+```
+
+#### performance comparison
+
+|==========================================
+| *name*             | *time* | *percent*
+| tarai__cut         |  1.606 |      100%
+| tarai__cutless     |    n/a |        ∞%
+| tarai__firstarg1   |  1.648 |      102%
+| tarai__firstarg2   |  1.588 |       99%
+| tarai__firstarg3   |  1.459 |      *91%*
+|==========================================
+
+
+## appendix
+
+### authorship
+
+* .
+** (c) kintalken@gmail.com 2020-10-22 .
+
+* tarai__imperativ
+* tarai__cut
+** (c) j4nBurse

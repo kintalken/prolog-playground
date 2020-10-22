@@ -42,7 +42,7 @@ tests : $(wildcard tests/*) $(wildcard tests/fixtures/*) $(wildcard tests/parts/
 .PRECIOUS : %.adoc
 
 %.html : %.adoc
-	asciidoctor -q -a toc -a toclevels=6 $< > $@
+	asciidoctor -q $< > $@
 
 DATE=$(shell date +%F)
 
