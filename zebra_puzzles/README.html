@@ -442,7 +442,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_zebra_puzzles">zebra_puzzles</a></li>
+<li><a href="#_zebra_puzzles">zebra_puzzles</a>
+<ul class="sectlevel2">
+<li><a href="#_files">files</a></li>
+</ul>
+</li>
 <li><a href="#_puzzle_one">puzzle one</a>
 <ul class="sectlevel2">
 <li><a href="#_question">question</a></li>
@@ -547,7 +551,41 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_zebra_puzzles">zebra_puzzles</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><em>Learn how to solve <strong>zebra puzzles</strong> using induktion and deduktion with Prolog .</em></p>
+</div>
+<div class="sect2">
+<h3 id="_files">files</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>src/
+├── parts
+│   ├── five.prolog
+│   ├── five.prolog.demo
+│   ├── four.prolog
+│   ├── four.prolog.demo
+│   ├── one.prolog
+│   ├── one.prolog.demo
+│   ├── three.prolog
+│   ├── three.prolog.demo
+│   ├── two.prolog
+│   └── two.prolog.demo
+└── suite.prolog
+tests/
+├── parts
+│   ├── five.prolog
+│   ├── four.prolog
+│   ├── one.prolog
+│   ├── three.prolog
+│   └── two.prolog
+└── suite.prolog
+imports/
+└── zebra_1984.prolog
 
+2 directories, 18 files</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1785,7 +1823,7 @@ EXPECT =
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-10-23 12:24:52 -0400
+Last updated 2020-10-23 13:03:49 -0400
 </div>
 </div>
 </body>

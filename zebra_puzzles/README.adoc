@@ -5,6 +5,38 @@
 
 ## zebra_puzzles
 
+_Learn how to solve *zebra puzzles* using induktion and deduktion with Prolog ._
+
+### files
+
+```
+src/
+├── parts
+│   ├── five.prolog
+│   ├── five.prolog.demo
+│   ├── four.prolog
+│   ├── four.prolog.demo
+│   ├── one.prolog
+│   ├── one.prolog.demo
+│   ├── three.prolog
+│   ├── three.prolog.demo
+│   ├── two.prolog
+│   └── two.prolog.demo
+└── suite.prolog
+tests/
+├── parts
+│   ├── five.prolog
+│   ├── four.prolog
+│   ├── one.prolog
+│   ├── three.prolog
+│   └── two.prolog
+└── suite.prolog
+imports/
+└── zebra_1984.prolog
+
+2 directories, 18 files
+```
+
 ## puzzle one
 
 ### question

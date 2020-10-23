@@ -5,6 +5,14 @@
 
 ## zebra_puzzles
 
+_Learn how to solve *zebra puzzles* using induktion and deduktion with Prolog ._
+
+### files
+
+```
+#exec tree src/ tests/ imports/
+```
+
 ## puzzle one
 
 ### question
@@ -255,7 +263,7 @@ different  (now-extinct) brands of cigarettes.
 #### history
 
 ```
-#include ./zebra_1984.prolog
+#include ./imports/zebra_1984.prolog
 ```
 
 ### answer
