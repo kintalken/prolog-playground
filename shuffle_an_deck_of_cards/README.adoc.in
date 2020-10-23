@@ -56,7 +56,7 @@ The code for producing the cards is below .
 
 ###### ./tests/parts/shuffle_an_deck_of_cards.prolog
 ```
-# include ./tests/parts/shuffle_an_deck_of_cards.prolog
+#include ./tests/parts/shuffle_an_deck_of_cards.prolog
 ```
 
 ## appendix
