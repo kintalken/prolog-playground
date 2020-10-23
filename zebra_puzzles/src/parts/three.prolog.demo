@@ -1,0 +1,12 @@
+
+/*
+?- three:puzzle(CULPRITs) .
+CULPRITs = [{position:1,first_name:'Angela',last_name:'Diamond',age:7},{position:2,first_name:'Mary',last_name:'Grant',age:8},{position:3,first_name:'David',last_name:'Leung',age:5}] ;
+CULPRITs = [{position:1,first_name:'Angela',last_name:'Diamond',age:7},{position:2,first_name:'Mary',last_name:'Leung',age:5},{position:3,first_name:'David',last_name:'Grant',age:8}] ;
+CULPRITs = [{position:1,first_name:'Angela',last_name:'Grant',age:8},{position:2,first_name:'Mary',last_name:'Diamond',age:7},{position:3,first_name:'David',last_name:'Leung',age:5}] ;
+CULPRITs = [{position:1,first_name:'Angela',last_name:'Leung',age:5},{position:2,first_name:'Mary',last_name:'Diamond',age:7},{position:3,first_name:'David',last_name:'Grant',age:8}] ;
+CULPRITs = [{position:1,first_name:'Angela',last_name:'Grant',age:8},{position:2,first_name:'Mary',last_name:'Leung',age:5},{position:3,first_name:'David',last_name:'Diamond',age:7}] ;
+CULPRITs = [{position:1,first_name:'Angela',last_name:'Leung',age:5},{position:2,first_name:'Mary',last_name:'Grant',age:8},{position:3,first_name:'David',last_name:'Diamond',age:7}] ;
+false .
+*/
+

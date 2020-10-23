@@ -1,0 +1,7 @@
+
+/*
+?- one:puzzle(HOUSEs) .
+HOUSEs = [{position:1,color:blue,nationality:norwegian},{position:2,color:red,nationality:italian},{position:3,color:white,nationality:palestinian}] ;
+false .
+*/
+

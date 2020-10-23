@@ -1,0 +1,288 @@
+
+# zebra_puzzles
+:toc:
+:toclevels: 6
+
+## zebra_puzzles
+
+## puzzle one
+
+### question
+
+* There are three houses in three different _positions_ .
+* Each house has an occupant that lives alone .
+* Each house has an different _color_ .
+* The _color_ is either `blue` or `red` or `white` .
+* Each occupant has an unique _nationality_ .
+* The _nationality_ is either `italian` or `norwegian` or `palestinian` .
+
+
+|====================================================
+|             |  house #1  |  house #2  |  house #3
+| position    |     1      |     2      |     3       
+| color       |     ?      |     ?      |     ?       
+| nationality |     ?      |     ?      |     ?       
+|====================================================
+
+1. The person with `palestinian` _nationality_ lives in an _position_ one greater than the _position_ of the house with _color_ `red` .
+2. The person with `norwegian` _nationality_ lives in the house with _color_ `blue` .
+3. The person with `italian` _nationality_ lives in the house at _position_ `2` .
+
+### answer
+
+###### ./src/parts/one.prolog
+```
+#include ./src/parts/one.prolog
+```
+
+There is 1 definitive solution to the puzzle .
+
+###### ./src/parts/one.prolog.demo
+```
+#include ./src/parts/one.prolog.demo
+```
+
+#### tests
+
+###### ./tests/parts/one.prolog
+```
+#include ./tests/parts/one.prolog
+```
+
+## puzzle two
+
+### question
+
+* There are three houses in three different _positions_ .
+* Each house has an occupant that lives alone .
+* Each house has a different _color_ .
+* Each house has an _color_ that is either `blue` or `green` or `red` .
+* Each occupant has unique _nationality_ of either `brazilian` or `german` or `chinese` .
+* Each occupant has an different _pet_ .
+* The _pet_ is either an `dog` or an `fish` or an `cat` .
+* Every occupant plays an different _sport_ .
+* The _sport_ is either `basketball` or `soccer` or `lacrosse` .
+
+|====================================================
+|             |  house #1  |  house #2  |  house #3
+| position    |    1       |    2       |    3       
+| color       |    ?       |    ?       |    ?       
+| nationality |    ?       |    ?       |    ?       
+| pet         |    ?       |    ?       |    ?       
+| sport       |    ?       |    ?       |    ?       
+|====================================================
+
+1. The occupant with `brazilian` _nationality_ does not live at _position_ `2` .
+2. The occupant with the `dog` as _pet_ plays the _sport_ of `basketball` .
+3. In _position_ `2` the occupant plays the _sport_ of `lacrosse` .
+4. The occupant with the _pet_ `fish` lives at one position less than the occupant with the _pet_ `cat` ,
+5. The occupant with the _pet_ `dog` lives at one position greater than the `green` house .
+6. The house with `red` _color_ is not beside the house with `blue` color .
+7. The _pet_ `fish` is not in the house with the _color_ `red_ .
+
+### answer
+
+###### ./src/parts/two.prolog
+```
+#include ./src/parts/two.prolog
+```
+
+There 4 valid solutions to this puzzle .
+
+###### ./src/parts/two.prolog.demo
+```
+#include ./src/parts/two.prolog.demo
+```
+
+#### tests
+
+###### ./tests/parts/two.prolog
+```
+#include ./tests/parts/two.prolog
+```
+
+### homework
+
+Add one or more rules to this example so that there is one defininitive solution .
+
+## puzzle three
+
+* The police are trying to capture the gang of three culprits who have been stealing pumpkins .
+* The first culprit is known by _name_ `Angela` .
+* The second culprit is known by _name_ `Mary` .
+* The third culprit is known by _name_ `David` .
+* One of the culprits has _age_ of `5` ; one has _age_ of `7` ; one has _age_ of `8` .
+* One has the _last name_ `Diamond` .
+* The one with the _last name_ `Grant` is of an _age_ three years older than the _age_ of the one with the _last name_ `Leung` .
+
+|==========================================================
+|              |  culprit #1  |  culprit #2  | culprit #3
+| age          |       ?      |       ?      |     ?
+| first_name   |       ?      |       ?      |     ?
+| last_name    |       ?      |       ?      |     ?
+|==========================================================
+
+### answer
+
+###### ./src/parts/three.prolog
+```
+#include ./src/parts/three.prolog
+```
+
+There is not an definitive answer to this puzzle .
+With the given clues there are still 6 possible solutions .
+
+###### ./src/parts/three.prolog.demo
+```
+#include ./src/parts/three.prolog.demo
+```
+
+#### tests
+
+###### ./tests/parts/three.prolog
+```
+#include ./tests/parts/three.prolog
+```
+
+## puzzle four
+
+### question
+
+* Four boys have decided to watch an movie .
+* Each boy has an _position_ to sit in .
+* Each boy has an _name_ .
+* Each boy has an _age_ .
+* Each boy likes a kind of _movie_ .
+* Each boy will eat an _snack_ .
+* Each boy has an color of _shirt_ .
+
+|=====================================================
+|          |  boy #1  |  boy #2  |  boy #3  |  boy #4
+| position |    1     |    2     |    3     |    4
+| name     |    ?     |    ?     |    ?     |    ?
+| age      |    ?     |    ?     |    ?     |    ?
+| movie    |    ?     |    ?     |    ?     |    ?
+| snack    |    ?     |    ?     |    ?     |    ?
+| shirt    |    ?     |    ?     |    ?     |    ?
+|=====================================================
+
+1. The boy with _name_ `Joshua` is in left-most _position_ `1` or right-most _position_ `4`
+2. The boy with the `black` _shirt_ is somewhere to the left of the boy with the smallest _age_ .
+3. The boy with _name_ `Joshua` likes `horror` movies .
+4. The boy with _age_ `14` is at _position_ `3` .
+5. The boy wearing the `red` _shirt_ is in an position right of the boy with _age_ `13` and in an position left of the boy likes `action` movies .
+6. The boy with _name_ `Daniel` likes `thriller` _movies_.
+7. The boy who is going to _snack_ with `cookies` is in one of the end positions .
+8. The boy wearing the `black` _shirt_ is exactly to the left of the boy who likes `thriller` movies.
+9. The boy who is going to _snack_ with `crackers` is exactly to the right of the boy who likes `comedy` _movies_ .
+10. The boy wearing the `red` _shirt_ is somewhere to the right of the boy who is going to _snack_ with `popcorn` and somewhere to the left of the boy with _name_ `Nicholas` .
+11. In one of the end positions is the boy who likes `Thriller` _movies_ .
+12. The boy with _name_ `Nicholas` is somewhere to the right of the boy with _name_ `Joshua` and to the left of the boy with _name_ `Daniel` .
+13. In the first position is the boy wearing the `green` _shirt_ .
+
+### answer
+
+#### homework
+
+Provide an solution , the demo , and it's tests for this puzzle
+in the style of the earlier answers .
+
+Does the puzzle have a definitive answer ?
+Is the puzzle impossible to solve ?
+
+###### ./src/parts/four.prolog
+```
+#include ./src/parts/four.prolog
+```
+
+###### ./src/parts/four.prolog.demo
+```
+#include ./src/parts/four.prolog.demo
+```
+
+#### tests
+
+###### ./tests/parts/four.prolog
+```
+#include ./tests/parts/four.prolog
+```
+
+## puzzle five
+
+_The classic zebra puzzle_
+
+### question
+
+There are 5 houses, occupied by politically-incorrect
+gentlemen of 5 different _nationalities_, who all have different
+_coloured_ houses, keep different _pets_, _drink_ different drinks, and _smoke_
+different  (now-extinct) brands of cigarettes.
+
+* The _nationality_ of the occupant is one of `english` , `spanish` , `ukranian` , `norwegian` , or `japanese` .
+* The _color_ of each house is one of `red` , `green` , `ivory` , `yellow` , or `blue` .
+* The _pet_ is one of `dog` , `snail` , `fox` , `horse` , or `zebra` .
+* The drink is one of `coffee` , `tea` , `milk` , `orange juice` , or `water` .
+* The smoke is one of `Old Gold` , `Kools` , `Chesterfields` , `Lucky Strikes` , or `Parliaments` .
+
+|==============================================================================
+|             |  house #1  |  house #2  |  house #3  |  house #4  |  house #5  
+| position    |    1       |    2       |    3       |    4       |    5       
+| color       |    ?       |    ?       |    ?       |    ?       |    ?       
+| nationality |    ?       |    ?       |    ?       |    ?       |    ?       
+| pet         |    ?       |    ?       |    ?       |    ?       |    ?       
+| drinks      |    ?       |    ?       |    ?       |    ?       |    ?       
+| smokes      |    ?       |    ?       |    ?       |    ?       |    ?       
+|==============================================================================
+
+1. The occupant with `english` _nationality_ lives in the `red` house .
+2. The occupant with `spanish` _nationality_ has an _pet_ `dog`.
+3. The occupant with the `green` _color_ of house _drinks_ `coffee` .
+4. The occupant with `ukrainian` _nationality_ _drinks_ `tea` .
+5. The `ivory` _colored_ house is in an position one less than the _position_ of the house with _color_ `green` .
+6. The owner of the _pet_ `snail` _smokes_ `Old Gold` .
+7. The owner of the house with _color_ `yellow` _smokes_ `Kools` .
+8. The owner of the house in _position_ `2` _drinks_ `milk` .
+9. The _nationality_ of the occupant in _position_ `1` is `norwegian` .
+10. The `Chesterfields` _smoker_ lives next to a house with an _pet_ `fox` .
+11. The _pet_ `horse` owner lives in an _position_ next to the `Kools` _smoker_ .
+12. The `Lucky Strikes` _smoker_ _drinks_ `orange juice` .
+13. The occupant with _nationality_ `japanese` _smokes_ `Parliaments` .
+14. The occupant with _nationality_ `norwegian` lives in an _position_ next to the house with _color_ `blue` .
+
+#### history
+
+```
+#include ./zebra_1984.prolog
+```
+
+### answer
+
+#### homework
+
+Provide an solution , the demo , and it's tests for this puzzle
+in the style of the earlier answers .
+
+This puzzle has an definitive answer.
+
+###### ./src/parts/five.prolog
+```
+#include ./src/parts/five.prolog
+```
+
+###### ./src/parts/five.prolog.demo
+```
+#include ./src/parts/five.prolog.demo
+```
+
+#### tests
+
+###### ./tests/parts/five.prolog
+```
+#include ./tests/parts/five.prolog
+```
+
+## appendix
+
+### authorship
+
+* (c) kintalken@gmail.com 2020-10-23 .

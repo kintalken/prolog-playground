@@ -1,0 +1,10 @@
+
+/*
+?- two:puzzle(HOUSEs) .
+HOUSEs = [{position:1, color:blue, nationality:brazilian, pet:fish, sport:soccer}, {position:2, color:green, nationality:german, pet:cat, sport:lacrosse}, {position:3, color:red, nationality:chinese, pet:dog, sport:basketball}] ;
+HOUSEs = [{position:1, color:blue, nationality:brazilian, pet:fish, sport:soccer}, {position:2, color:green, nationality:chinese, pet:cat, sport:lacrosse}, {position:3, color:red, nationality:german, pet:dog, sport:basketball}] ;
+HOUSEs = [{position:1, color:blue, nationality:german, pet:fish, sport:soccer}, {position:2, color:green, nationality:chinese, pet:cat, sport:lacrosse}, {position:3, color:red, nationality:brazilian, pet:dog, sport:basketball}] ;
+HOUSEs = [{position:1, color:blue, nationality:chinese, pet:fish, sport:soccer}, {position:2, color:green, nationality:german, pet:cat, sport:lacrosse}, {position:3, color:red, nationality:brazilian, pet:dog, sport:basketball}] ;
+false .
+*/
+
