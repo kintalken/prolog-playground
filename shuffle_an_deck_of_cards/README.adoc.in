@@ -1,0 +1,70 @@
+
+# shuffle_an_deck_of_cards
+
+## shuffle_an_deck_of_cards
+
+### question
+
+I have an predicate that produces a 52 length list of cards :
+
+```
+?- cards(CARDs) .
+CARDs = [2♣,2♦,2♠,2♥,3♣,3♦,3♠,3♥,4♣,4♦,4♠,4♥,5♣,5♦,5♠,5♥,6♣,6♦,6♠,6♥,7♣,7♦,7♠,7♥,8♣,8♦,8♠,8♥,9♣,9♦,9♠,9♥,10♣,10♦,10♠,10♥,J♣,J♦,J♠,J♥,Q♣,Q♦,Q♠,Q♥,K♣,K♦,K♠,K♥,A♣,A♦,A♠,A♥] .
+```
+
+I want to randomly shuffle them .
+
+How can I shuffle an list in Prolog ?
+
+I am used to doing this in an imperative way where
+I can swap the contents of memory adresses .
+
+The code for producing the cards is below .
+
+###### ./src/parts/rank.prolog
+```
+#include ./src/parts/rank.prolog
+```
+
+###### ./src/parts/suit.prolog
+```
+#include ./src/parts/suit.prolog
+```
+
+###### ./src/parts/card.prolog
+```
+#include ./src/parts/card.prolog
+```
+
+###### ./src/parts/cards.prolog
+```
+#include ./src/parts/cards.prolog
+```
+
+### answer
+
+1. assign an random number to each of the items in the list .
+2. sort the list of items according to the random number assigned to each item .
+3. remove the random number from each of the items in the list .
+
+###### ./src/parts/shuffle.prolog
+```
+#include ./src/parts/shuffle.prolog
+```
+
+#### tests
+
+###### ./tests/parts/shuffle_an_deck_of_cards.prolog
+```
+# include ./tests/parts/shuffle_an_deck_of_cards.prolog
+```
+
+## appendix
+
+### authorship
+
+* question
+** (c) selfial@yahoo.com 2020-10-21 .
+* answer
+** (c) kintalken@gmail.com 2020-10-21 .
+
