@@ -9,11 +9,11 @@
 
 :- op(1,'xfy','shuffle_') .
 
-shuffle(Xs0,Xs)
+shuffle(Xs0,Ys)
 :-
-[assign_randomness] shuffle_ (Xs0,Rs) ,
-[sort] shuffle_ (Rs,Ss) ,
-[remove_randomness] shuffle_ (Ss,Xs)
+[assign_randomness] shuffle_ (Xs0,Ys0) ,
+[sort] shuffle_ (Ys0,Ys1) ,
+[remove_randomness] shuffle_ (Ys1,Ys)
 .
 
 /*
