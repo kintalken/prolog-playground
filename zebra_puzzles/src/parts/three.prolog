@@ -11,7 +11,8 @@ induktion(CULPRITs) ,
 deduktion(CULPRITs)
 .
 
-induktion(CULPRITs) :-
+induktion(CULPRITs)
+:-
 there_are_three_culprits(CULPRITs) ,
 the_set_of_last_names_is_known(CULPRITs) ,
 the_set_of_ages_is_known(CULPRITs)

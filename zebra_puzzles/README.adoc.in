@@ -104,6 +104,7 @@ There 4 valid solutions to this puzzle .
 ### homework
 
 Add one or more rules to this example so that there is one defininitive solution .
+Update the testing to accurately reflect the new result .
 
 ## puzzle three
 
@@ -190,6 +191,8 @@ in the style of the earlier answers .
 Does the puzzle have a definitive answer ?
 Is the puzzle impossible to solve ?
 
+Be sure to update the testing to accurately reflect the new result .
+
 ###### ./src/parts/four.prolog
 ```
 #include ./src/parts/four.prolog
@@ -261,6 +264,8 @@ different  (now-extinct) brands of cigarettes.
 
 Provide an solution , the demo , and it's tests for this puzzle
 in the style of the earlier answers .
+
+Be sure to update the testing to accurately reflect the new result .
 
 This puzzle has an definitive answer.
 

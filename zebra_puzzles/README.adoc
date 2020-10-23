@@ -127,6 +127,21 @@ false .
 
 ###### ./tests/parts/one.prolog
 ```
+
+:- begin_tests(one) .
+
+test('1',[ACTUAL == EXPECT])
+:-
+prolog:bagof(HOUSEs,one:puzzle(HOUSEs),HOUSEss) ,
+ACTUAL = HOUSEss ,
+EXPECT =
+[
+	[{position:1,color:blue,nationality:norwegian},{position:2,color:red,nationality:italian},{position:3,color:white,nationality:palestinian}]
+]
+.
+
+:- end_tests(one) .
+
 ```
 
 ## puzzle two
@@ -330,11 +345,31 @@ false .
 
 ###### ./tests/parts/two.prolog
 ```
+
+:- begin_tests(two) .
+
+test('1',[ACTUAL == EXPECT])
+:-
+prolog:bagof(HOUSEs,two:puzzle(HOUSEs),HOUSEss) ,
+ACTUAL = HOUSEss ,
+EXPECT = 
+[
+	[{position:1, color:blue, nationality:brazilian, pet:fish, sport:soccer}, {position:2, color:green, nationality:german, pet:cat, sport:lacrosse}, {position:3, color:red, nationality:chinese, pet:dog, sport:basketball}] ,
+	[{position:1, color:blue, nationality:brazilian, pet:fish, sport:soccer}, {position:2, color:green, nationality:chinese, pet:cat, sport:lacrosse}, {position:3, color:red, nationality:german, pet:dog, sport:basketball}] ,
+	[{position:1, color:blue, nationality:german, pet:fish, sport:soccer}, {position:2, color:green, nationality:chinese, pet:cat, sport:lacrosse}, {position:3, color:red, nationality:brazilian, pet:dog, sport:basketball}] ,
+	[{position:1, color:blue, nationality:chinese, pet:fish, sport:soccer}, {position:2, color:green, nationality:german, pet:cat, sport:lacrosse}, {position:3, color:red, nationality:brazilian, pet:dog, sport:basketball}]
+]
+.
+
+:- end_tests(two) .
+
+
 ```
 
 ### homework
 
 Add one or more rules to this example so that there is one defininitive solution .
+Update the testing to accurately reflect the new result .
 
 ## puzzle three
 
@@ -370,7 +405,8 @@ induktion(CULPRITs) ,
 deduktion(CULPRITs)
 .
 
-induktion(CULPRITs) :-
+induktion(CULPRITs)
+:-
 there_are_three_culprits(CULPRITs) ,
 the_set_of_last_names_is_known(CULPRITs) ,
 the_set_of_ages_is_known(CULPRITs)
@@ -440,6 +476,25 @@ false .
 
 ###### ./tests/parts/three.prolog
 ```
+:- begin_tests(three) .
+
+test('1',[ACTUAL == EXPECT])
+:-
+prolog:bagof(HOUSEs,three:puzzle(HOUSEs),HOUSEss) ,
+ACTUAL = HOUSEss ,
+EXPECT =
+[
+	[{position:1,first_name:'Angela',last_name:'Diamond',age:7},{position:2,first_name:'Mary',last_name:'Grant',age:8},{position:3,first_name:'David',last_name:'Leung',age:5}] ,
+	[{position:1,first_name:'Angela',last_name:'Diamond',age:7},{position:2,first_name:'Mary',last_name:'Leung',age:5},{position:3,first_name:'David',last_name:'Grant',age:8}] ,
+	[{position:1,first_name:'Angela',last_name:'Grant',age:8},{position:2,first_name:'Mary',last_name:'Diamond',age:7},{position:3,first_name:'David',last_name:'Leung',age:5}] ,
+	[{position:1,first_name:'Angela',last_name:'Leung',age:5},{position:2,first_name:'Mary',last_name:'Diamond',age:7},{position:3,first_name:'David',last_name:'Grant',age:8}] ,
+	[{position:1,first_name:'Angela',last_name:'Grant',age:8},{position:2,first_name:'Mary',last_name:'Leung',age:5},{position:3,first_name:'David',last_name:'Diamond',age:7}] ,
+	[{position:1,first_name:'Angela',last_name:'Leung',age:5},{position:2,first_name:'Mary',last_name:'Grant',age:8},{position:3,first_name:'David',last_name:'Diamond',age:7}]
+]
+.
+
+:- end_tests(three) .
+
 ```
 
 ## puzzle four
@@ -488,8 +543,39 @@ in the style of the earlier answers .
 Does the puzzle have a definitive answer ?
 Is the puzzle impossible to solve ?
 
+Be sure to update the testing to accurately reflect the new result .
+
 ###### ./src/parts/four.prolog
 ```
+
+
+:- module(four,[]) .
+
+:- [library(lists)] .
+
+:- op(1,'xfy','contains') .
+
+puzzle(CULPRITs)
+:-
+induktion(CULPRITs) ,
+deduktion(CULPRITs)
+.
+
+induktion(CULPRITs)
+:-
+CULPRITs = [] % todo .
+.
+
+deduktion(CULPRITs)
+:-
+CULPRITs = [] % todo .
+.
+
+CULPRITs contains CULPRIT
+:-
+lists:member(CULPRIT,CULPRITs)
+.
+
 ```
 
 ###### ./src/parts/four.prolog.demo
@@ -500,6 +586,20 @@ Is the puzzle impossible to solve ?
 
 ###### ./tests/parts/four.prolog
 ```
+:- begin_tests(four) .
+
+test('1',[ACTUAL == EXPECT])
+:-
+prolog:bagof(HOUSEs,four:puzzle(HOUSEs),HOUSEss) ,
+ACTUAL = HOUSEss ,
+EXPECT =
+[
+	[]
+]
+.
+
+:- end_tests(four) .
+
 ```
 
 ## puzzle five
@@ -547,7 +647,6 @@ different  (now-extinct) brands of cigarettes.
 #### history
 
 ```
-% cat <zebra.pl
 %  Prolog program to solve the zebra problem.
 %  Aug 1984, Dan Sahlin, The Royal Inst. of Techn., Stockholm, Sweden
 % (revised October, 1985, P. H. Roosen-Runge)
@@ -628,12 +727,40 @@ find(ZebraOwner,WaterDrinker) :-
 Provide an solution , the demo , and it's tests for this puzzle
 in the style of the earlier answers .
 
+Be sure to update the testing to accurately reflect the new result .
+
 This puzzle has an definitive answer.
 
 ###### ./src/parts/five.prolog
 ```
 
+
 :- module(five,[]) .
+
+:- [library(lists)] .
+
+:- op(1,'xfy','contains') .
+
+puzzle(CULPRITs)
+:-
+induktion(CULPRITs) ,
+deduktion(CULPRITs)
+.
+
+induktion(CULPRITs)
+:-
+CULPRITs = [] % todo .
+.
+
+deduktion(CULPRITs)
+:-
+CULPRITs = [] % todo .
+.
+
+CULPRITs contains CULPRIT
+:-
+lists:member(CULPRIT,CULPRITs)
+.
 
 ```
 
@@ -645,6 +772,20 @@ This puzzle has an definitive answer.
 
 ###### ./tests/parts/five.prolog
 ```
+:- begin_tests(five) .
+
+test('1',[ACTUAL == EXPECT])
+:-
+prolog:bagof(HOUSEs,five:puzzle(HOUSEs),HOUSEss) ,
+ACTUAL = HOUSEss ,
+EXPECT =
+[
+	[]
+]
+.
+
+:- end_tests(five) .
+
 ```
 
 ## appendix

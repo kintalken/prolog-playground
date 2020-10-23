@@ -729,7 +729,19 @@ false .
 <h6 id="_testspartsone_prolog">./tests/parts/one.prolog</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code></code></pre>
+<pre class="highlight"><code>:- begin_tests(one) .
+
+test('1',[ACTUAL == EXPECT])
+:-
+prolog:bagof(HOUSEs,one:puzzle(HOUSEs),HOUSEss) ,
+ACTUAL = HOUSEss ,
+EXPECT =
+[
+	[{position:1,color:blue,nationality:norwegian},{position:2,color:red,nationality:italian},{position:3,color:white,nationality:palestinian}]
+]
+.
+
+:- end_tests(one) .</code></pre>
 </div>
 </div>
 </div>
@@ -1020,7 +1032,22 @@ false .
 <h6 id="_testspartstwo_prolog">./tests/parts/two.prolog</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code></code></pre>
+<pre class="highlight"><code>:- begin_tests(two) .
+
+test('1',[ACTUAL == EXPECT])
+:-
+prolog:bagof(HOUSEs,two:puzzle(HOUSEs),HOUSEss) ,
+ACTUAL = HOUSEss ,
+EXPECT =
+[
+	[{position:1, color:blue, nationality:brazilian, pet:fish, sport:soccer}, {position:2, color:green, nationality:german, pet:cat, sport:lacrosse}, {position:3, color:red, nationality:chinese, pet:dog, sport:basketball}] ,
+	[{position:1, color:blue, nationality:brazilian, pet:fish, sport:soccer}, {position:2, color:green, nationality:chinese, pet:cat, sport:lacrosse}, {position:3, color:red, nationality:german, pet:dog, sport:basketball}] ,
+	[{position:1, color:blue, nationality:german, pet:fish, sport:soccer}, {position:2, color:green, nationality:chinese, pet:cat, sport:lacrosse}, {position:3, color:red, nationality:brazilian, pet:dog, sport:basketball}] ,
+	[{position:1, color:blue, nationality:chinese, pet:fish, sport:soccer}, {position:2, color:green, nationality:german, pet:cat, sport:lacrosse}, {position:3, color:red, nationality:brazilian, pet:dog, sport:basketball}]
+]
+.
+
+:- end_tests(two) .</code></pre>
 </div>
 </div>
 </div>
@@ -1029,7 +1056,8 @@ false .
 <div class="sect2">
 <h3 id="_homework">homework</h3>
 <div class="paragraph">
-<p>Add one or more rules to this example so that there is one defininitive solution .</p>
+<p>Add one or more rules to this example so that there is one defininitive solution .
+Update the testing to accurately reflect the new result .</p>
 </div>
 </div>
 </div>
@@ -1114,7 +1142,8 @@ induktion(CULPRITs) ,
 deduktion(CULPRITs)
 .
 
-induktion(CULPRITs) :-
+induktion(CULPRITs)
+:-
 there_are_three_culprits(CULPRITs) ,
 the_set_of_last_names_is_known(CULPRITs) ,
 the_set_of_ages_is_known(CULPRITs)
@@ -1188,7 +1217,24 @@ false .
 <h6 id="_testspartsthree_prolog">./tests/parts/three.prolog</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code></code></pre>
+<pre class="highlight"><code>:- begin_tests(three) .
+
+test('1',[ACTUAL == EXPECT])
+:-
+prolog:bagof(HOUSEs,three:puzzle(HOUSEs),HOUSEss) ,
+ACTUAL = HOUSEss ,
+EXPECT =
+[
+	[{position:1,first_name:'Angela',last_name:'Diamond',age:7},{position:2,first_name:'Mary',last_name:'Grant',age:8},{position:3,first_name:'David',last_name:'Leung',age:5}] ,
+	[{position:1,first_name:'Angela',last_name:'Diamond',age:7},{position:2,first_name:'Mary',last_name:'Leung',age:5},{position:3,first_name:'David',last_name:'Grant',age:8}] ,
+	[{position:1,first_name:'Angela',last_name:'Grant',age:8},{position:2,first_name:'Mary',last_name:'Diamond',age:7},{position:3,first_name:'David',last_name:'Leung',age:5}] ,
+	[{position:1,first_name:'Angela',last_name:'Leung',age:5},{position:2,first_name:'Mary',last_name:'Diamond',age:7},{position:3,first_name:'David',last_name:'Grant',age:8}] ,
+	[{position:1,first_name:'Angela',last_name:'Grant',age:8},{position:2,first_name:'Mary',last_name:'Leung',age:5},{position:3,first_name:'David',last_name:'Diamond',age:7}] ,
+	[{position:1,first_name:'Angela',last_name:'Leung',age:5},{position:2,first_name:'Mary',last_name:'Grant',age:8},{position:3,first_name:'David',last_name:'Diamond',age:7}]
+]
+.
+
+:- end_tests(three) .</code></pre>
 </div>
 </div>
 </div>
@@ -1342,11 +1388,39 @@ in the style of the earlier answers .</p>
 <p>Does the puzzle have a definitive answer ?
 Is the puzzle impossible to solve ?</p>
 </div>
+<div class="paragraph">
+<p>Be sure to update the testing to accurately reflect the new result .</p>
+</div>
 <div class="sect5">
 <h6 id="_srcpartsfour_prolog">./src/parts/four.prolog</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code></code></pre>
+<pre class="highlight"><code>:- module(four,[]) .
+
+:- [library(lists)] .
+
+:- op(1,'xfy','contains') .
+
+puzzle(CULPRITs)
+:-
+induktion(CULPRITs) ,
+deduktion(CULPRITs)
+.
+
+induktion(CULPRITs)
+:-
+CULPRITs = [] % todo .
+.
+
+deduktion(CULPRITs)
+:-
+CULPRITs = [] % todo .
+.
+
+CULPRITs contains CULPRIT
+:-
+lists:member(CULPRIT,CULPRITs)
+.</code></pre>
 </div>
 </div>
 </div>
@@ -1365,7 +1439,19 @@ Is the puzzle impossible to solve ?</p>
 <h6 id="_testspartsfour_prolog">./tests/parts/four.prolog</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code></code></pre>
+<pre class="highlight"><code>:- begin_tests(four) .
+
+test('1',[ACTUAL == EXPECT])
+:-
+prolog:bagof(HOUSEs,four:puzzle(HOUSEs),HOUSEss) ,
+ACTUAL = HOUSEss ,
+EXPECT =
+[
+	[]
+]
+.
+
+:- end_tests(four) .</code></pre>
 </div>
 </div>
 </div>
@@ -1524,8 +1610,7 @@ different  (now-extinct) brands of cigarettes.</p>
 <h4 id="_history">history</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>% cat &lt;zebra.pl
-%  Prolog program to solve the zebra problem.
+<pre class="highlight"><code>%  Prolog program to solve the zebra problem.
 %  Aug 1984, Dan Sahlin, The Royal Inst. of Techn., Stockholm, Sweden
 % (revised October, 1985, P. H. Roosen-Runge)
 
@@ -1609,13 +1694,41 @@ find(ZebraOwner,WaterDrinker) :-
 in the style of the earlier answers .</p>
 </div>
 <div class="paragraph">
+<p>Be sure to update the testing to accurately reflect the new result .</p>
+</div>
+<div class="paragraph">
 <p>This puzzle has an definitive answer.</p>
 </div>
 <div class="sect5">
 <h6 id="_srcpartsfive_prolog">./src/parts/five.prolog</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>:- module(five,[]) .</code></pre>
+<pre class="highlight"><code>:- module(five,[]) .
+
+:- [library(lists)] .
+
+:- op(1,'xfy','contains') .
+
+puzzle(CULPRITs)
+:-
+induktion(CULPRITs) ,
+deduktion(CULPRITs)
+.
+
+induktion(CULPRITs)
+:-
+CULPRITs = [] % todo .
+.
+
+deduktion(CULPRITs)
+:-
+CULPRITs = [] % todo .
+.
+
+CULPRITs contains CULPRIT
+:-
+lists:member(CULPRIT,CULPRITs)
+.</code></pre>
 </div>
 </div>
 </div>
@@ -1634,7 +1747,19 @@ in the style of the earlier answers .</p>
 <h6 id="_testspartsfive_prolog">./tests/parts/five.prolog</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code></code></pre>
+<pre class="highlight"><code>:- begin_tests(five) .
+
+test('1',[ACTUAL == EXPECT])
+:-
+prolog:bagof(HOUSEs,five:puzzle(HOUSEs),HOUSEss) ,
+ACTUAL = HOUSEss ,
+EXPECT =
+[
+	[]
+]
+.
+
+:- end_tests(five) .</code></pre>
 </div>
 </div>
 </div>
@@ -1660,7 +1785,7 @@ in the style of the earlier answers .</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-10-23 01:06:56 -0400
+Last updated 2020-10-23 12:24:52 -0400
 </div>
 </div>
 </body>
