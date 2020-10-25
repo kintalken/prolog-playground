@@ -70,12 +70,6 @@ define WRITE_README_DEFAULT_FILE
 ###### ./src/parts/$(PROJECT_NAME).prolog
 ```
 #include ./src/parts/$(PROJECT_NAME).prolog
-
-$(PROJECT_NAME)
-:-
-prolog:throw(fixme)
-.
-
 ```
 
 #### tests
@@ -83,14 +77,6 @@ prolog:throw(fixme)
 ###### ./tests/parts/$(PROJECT_NAME).prolog
 ```
 #include ./tests/parts/$(PROJECT_NAME).prolog
-
-:- begin_tests($(PROJECT_NAME)) .
-
-test('1',[fixme(todo)])
-:-
-false
-.
-
 ```
 
 ## appendix
