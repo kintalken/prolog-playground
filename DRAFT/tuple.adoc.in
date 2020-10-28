@@ -1,0 +1,66 @@
+
+An tuple is composed of one part unless it contains an comma .
+
+```
+---
+A = (PART__1) .
+---
+```
+
+The `(` character and the `)` character are part of the tuple as edges .
+
+An tuple has parts seperated by commas .
+
+---
+```
+
+A = (PART__1) ,
+B = (PART__1,PART__2) ,
+C = (PART__1,PART__2,PART__3) .
+
+P = (PART__1,(PART__2__a,PART__2__b),PART__3) ,
+P = (_,Q,_) ,
+Q = (PART__2__a,PART__2__b) .
+```
+---
+
+The count of number of parts in the tuple is called the "arity" of the tuple .
+
+---
+```
+
+count_parts_in_tuple(TUPLE0,1)
+:-
+TUPLE0 ~ (_,_)
+.
+
+count_parts_in_tuple(TUPLE0,COUNT)
+:-
+TUPLE0 = (HEAD0,TAIL0) ,
+when(ground(COUNT0),COUNT is COUNT0 + 1) ,
+count_parts_in_tuple(TAIL0,COUNT0)
+.
+
+arity_of_tuple(TUPLE0,ARITY)
+:-
+count_parts_in_tuple(TUPLE0,ARITY)
+.
+
+```
+---
+
+
+An tuple with an name attached is an funktor .
+
+---
+```
+A = bliss(PART__1) .
+```
+---
+
+The count of number of parts in the tuple is called the "arity" of the funktor .
+
+An funktor without an tuple is an funktor with arity 0 .
+
+An tuple with an name attached is no longer valid as an tuple because it is instead an funktor .
+

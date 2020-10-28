@@ -1,0 +1,9 @@
+
+Instead of asking "who is the youngest" try asking "Is there a person of a certain age such that there is no person that has age smaller than that age ?"
+
+
+youngest(PERSON,AGE)
+:-
+person(PERSON) joint age(AGE) ,
+\+ (person(OTHER) joint age(OTHER_AGE) , OTHER_AGE < AGE)
+.
