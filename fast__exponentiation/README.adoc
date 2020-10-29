@@ -22,6 +22,7 @@ repeat the following sequence of steps until termination :
 5. stem:[x larr x^2]
 ====
 
+### answer
 
 ###### ./src/parts/power.js
 ```
