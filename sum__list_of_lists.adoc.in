@@ -1,0 +1,69 @@
+
+### question
+
+This is a problem suma( [ [ 1, 2, 3, 4 ], [ 2, 3, 4, 5 ], [ 3, 4, 5, 6 ] ], X ), and i need to get this result X = [ 10, 14, 18 ]. I don't have any idea how to figure this out. Please help
+
+### answer
+
+```
+
+%! sum(Xs,SUM)
+%
+% calculate the total sum of the items in list `Xs` .
+
+sum(Xs,SUM)
+:-
+sum(Xs,0,SUM)
+.
+
+sum([],SUM0,SUM0) .
+
+sum([X0|Xs],SUM0,SUM)
+:-
+SUM1 is SUM0 + X0 ,
+sum(Xs,SUM1,SUM)
+.
+
+```
+
+```
+/*
+?- sum([1,2,3,4],SUM).
+SUM = 10.
+
+?- sum([2,3,4,5],SUM).
+SUM = 14.
+
+?- sum([3,4,5,6],SUM).
+SUM = 18.
+*/
+```
+
+
+```
+
+%! suma(Xss0,SUM)
+%
+% calculate the total sum of the items in list of lists `Xss` .
+
+suma([],0) .
+
+suma([Xs0|Xss0],SUM)
+:-
+sum(Xs0,SUM0) ,
+suma(Xss0,SUM1) ,
+SUM is SUM0 + SUM1
+.
+
+```
+
+```
+/*
+?- suma([[1,2,3,4],[2,3,4,5]],SUM).
+SUM = 24.
+
+?- suma([[1,2,3,4],[2,3,4,5],[3,4,5,6]],SUM).
+SUM = 42.
+*/
+```
+
