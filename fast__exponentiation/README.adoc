@@ -9,17 +9,7 @@
 ### question
 
 ====
-To implement stem:["power"(a,b)] :
-given inputs stem:[a in RR] , stem:[b in NN] ;
-initialize registers stem:[x] , stem:[y] , stem:[z] to
-stem:[a] , stem:[1] , stem:[b] respectively ; and
-repeat the following sequence of steps until termination :
-
-1. if stem:[z = 0] return stem:[y] and terminate
-2. stem:[r larr "remainder"(z,2)]
-3. stem:[z larr "quotient"(z,2)]
-4. if stem:[r = 1] then stem:[y larr xy]
-5. stem:[x larr x^2]
+image::./doc/images/question.png[question]
 ====
 
 ### answer

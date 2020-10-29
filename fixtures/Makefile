@@ -44,6 +44,17 @@ tests : $(wildcard tests/*) $(wildcard tests/fixtures/*) $(wildcard tests/parts/
 %.html : %.adoc
 	asciidoctor -q $< > $@
 
+%.pdf : %.tex
+	pdflatex -output-directory=$(dir $<) $<
+	rm $(basename $<).aux
+	rm $(basename $<).log
+
+%.pdf.crop : %.pdf 
+	pdfcrop $< $@
+
+%.png : %.pdf.crop
+	gs -q -sDEVICE=pngalpha -o $@ -r600 $<
+
 DATE=$(shell date +%F)
 
 define WRITE_MAKEFILE_DEFAULT_FILE

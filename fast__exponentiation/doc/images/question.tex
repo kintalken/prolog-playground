@@ -1,0 +1,21 @@
+
+\documentclass{article}
+\thispagestyle{empty}
+\begin{document}
+
+To implement $ \mathbf{power}(a,b) $ :
+given inputs $ a \in R $ , $ b \in N $ ;
+initialize registers $ x $ , $ y $ , $ z $ to
+$ a $ , $ 1 $ , $ b $ respectively ; and
+repeat the following sequence of steps until termination :
+
+\begin{enumerate}
+\item if $ z = 0 $ return $ y $ and terminate
+\item $ r \leftarrow \mathbf{remainder}(z,2) $
+\item $ z \leftarrow \mathbf{quotient}(z,2) $
+\item if $ r = 1 $ then $ y \leftarrow xy $
+\item $ x \leftarrow x^2 $
+\end{enumerate}
+
+\end{document}
+
