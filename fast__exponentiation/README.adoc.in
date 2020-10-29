@@ -1,0 +1,86 @@
+
+# fast__exponentiation
+:toc:
+:toclevels: 6
+:stem:
+
+## Fast Exponentiation Algorithm
+
+### question
+
+====
+To implement stem:["power"(a,b)] :
+given inputs stem:[a in RR] , stem:[b in NN] ;
+initialize registers stem:[x] , stem:[y] , stem:[z] to
+stem:[a] , stem:[1] , stem:[b] respectively ; and
+repeat the following sequence of steps until termination :
+
+1. if stem:[z = 0] return stem:[y] and terminate
+2. stem:[r larr "remainder"(z,2)]
+3. stem:[z larr "quotient"(z,2)]
+4. if stem:[r = 1] then stem:[y larr xy]
+5. stem:[x larr x^2]
+====
+
+
+###### ./src/parts/power.js
+```
+#include ./src/parts/power.js
+```
+
+```
+$ node -i -e "$(< src/parts/power.js)"
+
+> power(2,3) ;
+8
+> power(3,3) ;
+27
+> power(3,4) ;
+81
+> power(3.5,4) ;
+150.0625
+>
+```
+
+```
+> power(3,4.5) ;
+81
+> // WRONG answer !
+> Math.pow(3,4.5) ;
+140.29611541307906
+>
+```
+
+###### ./src/parts/power.prolog
+```
+#include ./src/parts/power.prolog
+```
+
+```
+$ swipl -q -l src/parts/power.prolog
+
+?- power(2,3,Q).
+Q = 8 ;
+false.
+
+?- power(3,3,Q).
+Q = 27 ;
+false.
+
+?- power(3,4,Q).
+Q = 81 ;
+false.
+
+?- power(3.5,4,Q).
+Q = 150.0625 ;
+false.
+
+?-
+```
+
+```
+?- power(3,4.5,Q).
+ERROR: Type error: `integer' expected, found `4.5' (a float)
+
+?-
+```

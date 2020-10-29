@@ -1,0 +1,3 @@
+
+:- ['./../src/suite.prolog'] .
+
