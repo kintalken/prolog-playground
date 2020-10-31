@@ -26,6 +26,8 @@ clean :
 
 doc : README.adoc.in README.html
 
+README.adoc : src tests
+
 src : src/suite.prolog 
 
 src : Makefile

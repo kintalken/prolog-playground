@@ -1,0 +1,56 @@
+
+# euclids_algorithm
+:toc:
+:toclevels: 6
+
+## euclids_algorithm
+
+### question
+
+image::./doc/images/question.png[question]
+
+### answer
+
+### javascript implementation
+
+###### ./src/parts/gcd.js
+```
+#include ./src/parts/gcd.js
+```
+
+### prolog implementation part 1
+
+###### ./src/parts/gcd__a.prolog
+```
+#include ./src/parts/gcd__a.prolog
+```
+
+### prolog implementation part 2
+
+The `_IF_ -> _THEN_ ; _ELSE_` construct
+is undesirable because it
+depends upon an side-effect .
+
+
+###### ./src/parts/gcd__b.prolog
+```
+#include ./src/parts/gcd__b.prolog
+```
+
+#### tests
+
+###### ./tests/parts/gcd__a.prolog
+```
+ include ./tests/parts/gcd__a.prolog
+```
+
+###### ./tests/parts/gcd__b.prolog
+```
+ include ./tests/parts/gcd__b.prolog
+```
+
+## appendix
+
+### authorship
+
+* (c) kintalken@gmail.com 2020-10-29 .

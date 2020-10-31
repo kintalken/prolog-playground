@@ -1,0 +1,10 @@
+
+Deductive reasoning is non-monotonic inference in which the conclusion is of greater generality than the premises .
+
+non-monotonic logics are devised to capture and represent defeasible inferences .
+
+A monotonic consequence relation means that an formula to a theory never produces a reduction of its set of consequences.  
+
+A monotonic logic cannot handle reasoning by default (consequences may be derived only because of lack of evidence of the contrary) .
+
+The principle of explosion is the logical thinking law that once a contradiction has been asserted, any proposition (including it's negations) can be inferred from it; this is known as deductive explosion

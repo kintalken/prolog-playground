@@ -1,0 +1,19 @@
+
+\documentclass{article}
+\thispagestyle{empty}
+\begin{document}
+
+Given two positive integers $ m $ and $ n $ ,
+find their \emph{greatest common divisor} , that is ,
+the largest positive integer that
+evenly divides both $ m $ and $ n $ .
+
+\begin{itemize}
+\item [E1.] [Find remainder] Divide $ m $ by $ n$ and let $ r $ be the $ remainder $ . (We will have $ 0 \leq r < n $)
+\item [E2.] [Is it zero?] If $ r = 0 $ , the algorithm terminates ; $ n $ is the answer .
+\item [E3.] [Reduce.] Set $ m \leftarrow n $ , $ n \leftarrow r $ , and go back to step E1 .
+\end{itemize}
+
+--- from \textit{The art of computer programming : fundamental algorithms 3rd ed.}  , page 2 .
+\end{document}
+
