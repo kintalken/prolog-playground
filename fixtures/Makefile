@@ -7,14 +7,12 @@ all : dirs banner src test doc
 
 dirs :
 	@mkdir -p src
-	@mkdir -p src/suite
 	@mkdir -p tests
-	@mkdir -p tests/suite
 
 banner :
 	@echo "PROJECT_NAME=$(PROJECT_NAME)"
 
-demo : src doc
+demo : src doc test
 	swipl -q -l src/suite.prolog
 
 test : tests
@@ -36,7 +34,7 @@ src : $(wildcard src/*) $(wildcard src/suite/*)
 
 tests : tests/suite.prolog
 
-tests : $(wildcard tests/*) $(wildcard tests/fixtures/*) $(wildcard tests/suite/*)
+tests : $(wildcard tests/*) $(wildcard tests/suite/*) $(wildcard tests/fixtures/*)
 
 %.adoc : %.adoc.in
 	gpp -x $< > $@
@@ -80,16 +78,16 @@ define WRITE_README_DEFAULT_FILE
 
 ### answer
 
-###### ./src/suite/suite.prolog
+###### ./src/suite.prolog
 ```
-#include ./src/suite/suite.prolog
+#include ./src/suite.prolog
 ```
 
 #### tests
 
-###### ./tests/suite/suite.prolog
+###### ./tests/suite.prolog
 ```
-#include ./tests/suite/suite.prolog
+#include ./tests/suite.prolog
 ```
 
 ## appendix
@@ -115,6 +113,10 @@ src/suite.prolog :
 define WRITE_TESTS_SUITE_DEFAULT_FILE
 
 :- ['./../src/suite.prolog'] .
+
+:- begin_tests(basic) .
+
+:- end_tests(basic) .
 
 endef
 
