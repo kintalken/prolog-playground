@@ -1,0 +1,45 @@
+
+# `nth__oldest__child`
+:toc:
+:toclevels: 6
+
+## `nth__oldest__child`
+
+### question
+
+
+###### ./src/suite/database.prolog
+
+```
+#include ./src/suite/database.prolog
+```
+
+What I would like to do is define a query that returns the Nth oldest child of an person, .e.g. in this case with person `john`  1st oldest would be `maggie` , 2nd oldest would be `martinez` , and 3rd oldest would be `mary` .
+
+### answer
+
+1. make a `QUERY` that get's all children of the `PERSON0` .
+2. form the result so that `AGE` comes first in the term .
+3. use `setof` for the query so that the results are sorted by `AGE` youngest to oldest .
+4. reverse the youngest to oldest list to get an oldest to youngest list .
+5. obtain the `NTH` element from the list of oldest to youngest .
+
+###### ./src/suite/nth__oldest__child.prolog
+```
+#include ./src/suite/nth__oldest__child.prolog
+```
+
+//// todo
+#### tests
+
+###### ./tests/suite/suite.prolog
+```
+# include ./tests/suite/suite.prolog
+```
+////
+
+## appendix
+
+### authorship
+
+* (c) kintalken@gmail.com 2020-10-31 .

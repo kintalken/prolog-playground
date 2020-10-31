@@ -7,9 +7,9 @@ all : dirs banner src test doc
 
 dirs :
 	@mkdir -p src
-	@mkdir -p src/parts
+	@mkdir -p src/suite
 	@mkdir -p tests
-	@mkdir -p tests/parts
+	@mkdir -p tests/suite
 
 banner :
 	@echo "PROJECT_NAME=$(PROJECT_NAME)"
@@ -32,11 +32,11 @@ src : src/suite.prolog
 
 src : Makefile
 
-src : $(wildcard src/*) $(wildcard src/parts/*)
+src : $(wildcard src/*) $(wildcard src/suite/*)
 
 tests : tests/suite.prolog
 
-tests : $(wildcard tests/*) $(wildcard tests/fixtures/*) $(wildcard tests/parts/*)
+tests : $(wildcard tests/*) $(wildcard tests/fixtures/*) $(wildcard tests/suite/*)
 
 %.adoc : %.adoc.in
 	gpp -x $< > $@
@@ -80,16 +80,16 @@ define WRITE_README_DEFAULT_FILE
 
 ### answer
 
-###### ./src/parts/$(PROJECT_NAME).prolog
+###### ./src/suite/suite.prolog
 ```
-#include ./src/parts/$(PROJECT_NAME).prolog
+#include ./src/suite/suite.prolog
 ```
 
 #### tests
 
-###### ./tests/parts/$(PROJECT_NAME).prolog
+###### ./tests/suite/suite.prolog
 ```
-#include ./tests/parts/$(PROJECT_NAME).prolog
+#include ./tests/suite/suite.prolog
 ```
 
 ## appendix
@@ -105,7 +105,7 @@ README.adoc.in :
 
 define WRITE_SRC_SUITE_DEFAULT_FILE
 
-:- ['./parts/$(PROJECT_NAME).prolog'] .
+:- ['./suite/$(PROJECT_NAME).prolog'] .
 
 endef
 
@@ -115,8 +115,6 @@ src/suite.prolog :
 define WRITE_TESTS_SUITE_DEFAULT_FILE
 
 :- ['./../src/suite.prolog'] .
-
-:- ['./parts/$(PROJECT_NAME).prolog'] .
 
 endef
 

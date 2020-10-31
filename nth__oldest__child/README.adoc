@@ -1,0 +1,101 @@
+
+# `nth__oldest__child`
+:toc:
+:toclevels: 6
+
+## `nth__oldest__child`
+
+### question
+
+
+###### ./src/suite/database.prolog
+
+```
+
+person(john) .
+person(mary) .
+person(martine) .
+person(maggie) .
+person(nancy) .
+person(adam) .
+person(andrew) .
+person(adrian) .
+
+age(john,44) .
+age(mary,11) .
+age(martinez,12) .
+age(maggie,13) .
+
+age(nancy,66) .
+age(adam,27) .
+age(andrew,22) .
+age(adrian,24) .
+
+child(john,mary).
+child(john,martinez).
+child(john,maggie).
+
+child(nancy,adam) .
+child(nancy,andrew) .
+child(nancy,adrian) .
+
+```
+
+What I would like to do is define a query that returns the Nth oldest child of an person, .e.g. in this case with person `john`  1st oldest would be `maggie` , 2nd oldest would be `martinez` , and 3rd oldest would be `mary` .
+
+### answer
+
+1. make a `QUERY` that get's all children of the `PERSON0` .
+2. form the result so that `AGE` comes first in the term .
+3. use `setof` for the query so that the results are sorted by `AGE` youngest to oldest .
+4. reverse the youngest to oldest list to get an oldest to youngest list .
+5. obtain the `NTH` element from the list of oldest to youngest .
+
+```
+
+nth__oldest__child(NTH0,PERSON0,NTH_CHILD,NTH_AGE)
+:-
+QUERY=(child(PERSON0,CHILD) , age(CHILD,AGE)) ,
+FORM=(age___child(AGE,CHILD)) ,
+prolog:setof(FORM,QUERY,YOUNGEST_TO_OLDESTs) ,
+lists:reverse(YOUNGEST_TO_OLDESTs,OLDEST_TO_YOUNGESTs) ,
+lists:nth1(NTH0,OLDEST_TO_YOUNGESTs,age___child(NTH_AGE,NTH_CHILD))
+.
+
+/*
+$ make demo
+
+?- nth__oldest__child(1,john,CHILD,AGE) .
+CHILD = maggie,
+AGE = 13.
+
+?- nth__oldest__child(2,john,CHILD,AGE).
+CHILD = martinez,
+AGE = 12.
+
+?- nth__oldest__child(3,john,CHILD,AGE).
+CHILD = mary,
+AGE = 11.
+
+?- nth__oldest__child(4,john,CHILD,AGE).
+false.
+
+?-
+*/
+
+```
+
+//// todo
+#### tests
+
+###### ./tests/suite/suite.prolog
+```
+# include ./tests/suite/suite.prolog
+```
+////
+
+## appendix
+
+### authorship
+
+* (c) kintalken@gmail.com 2020-10-31 .
