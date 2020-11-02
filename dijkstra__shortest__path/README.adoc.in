@@ -7,10 +7,9 @@
 
 ### question
 
-```
-```
+Implement "Dijkstra's Shortest Path First algorithm" .
 
-### answer
+#### algorithm
 
 * an vertex represents one location
 * an edge represents the connection from one vertex to another
@@ -29,16 +28,37 @@
 
 ** obtain the distance from the current vertex to any known neighbor
 *** (for each such neighbour)
-*** the existing value is the value of the edge that is from the starting vertex to the neighbour vertex
+*** the existing value is the value of the edge that is from the starting vertex to the vertex for the known neighbour
 *** the potential value is the value of the edge that is from the starting vertex to the current vertex plus the distance from the current vertex to the known neighbour 
 *** if that potential value is shorter than that existing value
-**** update that edge with the potential value
+**** update that edge from the starting vertex to the neighbour vertex with the potential value
 **** update the predecessor of the neighbour vertex to be the current vertex
 ** goto (loop) unless all vertex have been removed
+
+### answer
 
 ###### ./src/suite.prolog
 ```
 #include ./src/suite.prolog
+```
+
+#### bonus
+
+_Allow for an new table to be loaded from an csv file_ .
+
+###### ./data/rosetta.csv
+```
+#include ./data/rosetta.csv
+```
+
+###### ./src/suite/csv.prolog
+```
+#include ./src/suite/csv.prolog
+```
+
+###### ./src/suite/csv.prolog.demo
+```
+#include ./src/suite/csv.prolog.demo
 ```
 
 ## appendix

@@ -1,0 +1,12 @@
+/*
+?- FILE='data/rosetta.csv' , csv(FILE) , calculate(FILE) , path(FILE,'a','e',PATHs) . 
+FILE = 'data/rosetta.csv' ,
+PATHs = [segment(a,0),segment(c,9),segment(f,11),segment(e,20)] .
+
+?- FILE='data/rosetta.csv' , csv(FILE) , calculate(FILE) , path(FILE,'a','f',PATHs) .
+
+FILE = 'data/rosetta.csv' ,
+PATHs = [segment(a,0),segment(c,9),segment(f,11)] .
+
+?- 
+*/
