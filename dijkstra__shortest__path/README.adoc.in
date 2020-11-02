@@ -37,9 +37,9 @@ Implement "Dijkstra's Shortest Path First algorithm" .
 
 ### answer
 
-###### ./src/suite.prolog
+###### ./src/suite/dijkstra.prolog
 ```
-#include ./src/suite.prolog
+#include ./src/suite/dijkstra.prolog
 ```
 
 #### bonus
