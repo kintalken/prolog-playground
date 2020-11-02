@@ -1,0 +1,36 @@
+
+# csv__file__first__line__header
+:toc:
+:toclevels: 6
+
+## csv__file__first__line__header
+
+### question
+
+I have this file as an csv :
+
+###### ./data/distances.csv
+```
+#include ./data/distances.csv
+```
+
+Now I want this file to create facts such as this in prolog as :
+
+```
+distance('A','E',3)
+distance('A','G',5)
+... and so on ...
+```
+
+### answer
+
+###### ./src/suite.prolog
+```
+#include ./src/suite.prolog
+```
+
+## appendix
+
+### authorship
+
+* (c) kintalken@gmail.com 2020-10-31 .

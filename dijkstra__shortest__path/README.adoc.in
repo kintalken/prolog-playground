@@ -1,0 +1,48 @@
+
+# dijkstra__shortest__path
+:toc:
+:toclevels: 6
+
+## dijkstra__shortest__path
+
+### question
+
+```
+```
+
+### answer
+
+* an vertex represents one location
+* an edge represents the connection from one vertex to another
+* the value of an edge is the measure of the distance from one vertex to another
+
+* (initialize)
+** create many vertex one for each known location
+** some one vertex is chosen as the starting vertex
+** an initial edge is created for the starting vertex to every other vertex
+** the initial edge of the starting vertex to itself has an 0 value
+** the initial edge of the starting vertex to every other vertex has an infinite value
+
+* (loop)
+** the current vertex is the vertex with the minimal distance from the starting vertex
+** the current vertex is removed
+
+** obtain the distance from the current vertex to any known neighbor
+*** (for each such neighbour)
+*** the existing value is the value of the edge that is from the starting vertex to the neighbour vertex
+*** the potential value is the value of the edge that is from the starting vertex to the current vertex plus the distance from the current vertex to the known neighbour 
+*** if that potential value is shorter than that existing value
+**** update that edge with the potential value
+**** update the predecessor of the neighbour vertex to be the current vertex
+** goto (loop) unless all vertex have been removed
+
+###### ./src/suite.prolog
+```
+#include ./src/suite.prolog
+```
+
+## appendix
+
+### authorship
+
+* (c) kintalken@gmail.com 2020-11-01 .
