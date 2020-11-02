@@ -451,12 +451,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_answer">answer</a>
 <ul class="sectlevel5">
-<li><a href="#_srcsuite_prolog">./src/suite.prolog</a></li>
+<li><a href="#_srcsuitedijkstra_prolog">./src/suite/dijkstra.prolog</a></li>
 <li><a href="#_bonus">bonus</a>
 <ul class="sectlevel5">
 <li><a href="#_datarosetta_csv">./data/rosetta.csv</a></li>
 <li><a href="#_srcsuitecsv_prolog">./src/suite/csv.prolog</a></li>
-<li><a href="#_demo">demo</a></li>
+<li><a href="#_srcsuitecsv_prolog_demo">./src/suite/csv.prolog.demo</a></li>
 </ul>
 </li>
 </ul>
@@ -567,13 +567,144 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="_answer">answer</h3>
 <div class="sect5">
-<h6 id="_srcsuite_prolog">./src/suite.prolog</h6>
+<h6 id="_srcsuitedijkstra_prolog">./src/suite/dijkstra.prolog</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>:- ['./suite/dijkstra.prolog'] .
-:- ['./suite/csv.prolog'] .
-:- ['./suite/demo_1.prolog'] .
-:- ['./suite/demo_2.prolog'] .</code></pre>
+<pre class="highlight"><code>:- [library(lists)] .
+
+:- multifile data:distance/4 .
+
+:- dynamic data:vertex/3 .
+:- dynamic data:edge/4 .
+:- dynamic data:predecessor/4 .
+
+calculate(Q0)
+:-
+prolog:forall(location(Q0,START),calculate(Q0,START))
+.
+
+calculate(Q0,START0)
+:-
+create__initial__vertexes(Q0,START0) ,
+create__initial__edges(Q0,START0) ,
+create__initial__predecessors(Q0,START0) ,
+loop(Q0,START0) .
+
+debug
+:-
+prolog:listing(data:distance) ,
+prolog:listing(data:vertex) ,
+prolog:listing(data:edge) ,
+prolog:listing(data:predecessor)
+.
+
+location(Q0,LOCATION)
+:-
+lookup(data:distance(Q0,LOCATION,_,_)) ;
+lookup(data:distance(Q0,_,LOCATION,_))
+.
+
+neighbour(Q0,LOCATION_1,LOCATION_2,DISTANCE)
+:-
+lookup(data:distance(Q0,LOCATION_1,LOCATION_2,DISTANCE)) ;
+lookup(data:distance(Q0,LOCATION_2,LOCATION_1,DISTANCE))
+.
+
+create__initial__vertexes(Q0,START0)
+:-
+location(Q0,LOCATION) ,
++ lookup(data:vertex(Q0,START0,LOCATION)) ,
+remember(data:vertex(Q0,START0,LOCATION)) ,
+fail ;
+true
+.
+
+create__initial__edges(Q0,START0)
+:-
+lookup(data:vertex(Q0,START0,VERTEX)) ,
+(START0 = VERTEX -&gt; DISTANCE is 0 ; DISTANCE is inf) ,
++ lookup(data:edge(Q0,START0,VERTEX,DISTANCE)) ,
+remember(data:edge(Q0,START0,VERTEX,DISTANCE)) ,
+fail ;
+true
+.
+
+create__initial__predecessors(Q0,START0)
+:-
+lookup(data:vertex(Q0,START0,VERTEX)) ,
++ lookup(data:predecessor(Q0,START0,VERTEX,_)) ,
+remember(data:predecessor(Q0,START0,VERTEX,_)) ,
+fail ;
+true
+.
+
+loop(Q0,START0)
+:-
+repeat ,
+current__vertex(Q0,START0,CURRENT,DISTANCE_FROM_START) ,
+forget(data:vertex(Q0,START0,CURRENT)) ,
+neighbour(Q0,CURRENT,NEIGHBOUR,DISTANCE_FROM_NEIGHBOUR) ,
+POTENTIAL_DISTANCE is DISTANCE_FROM_START + DISTANCE_FROM_NEIGHBOUR ,
+lookup(data:edge(Q0,START0,NEIGHBOUR,EXISTING_DISTANCE)) ,
+maybe__update__neighbour(Q0,START0,CURRENT,NEIGHBOUR,EXISTING_DISTANCE,POTENTIAL_DISTANCE) ,
++ lookup(data:vertex(Q0,_,_)) , % repeat until no more vertex .
+!
+.
+
+current__vertex(Q0,START0,CURRENT,DISTANCE_FROM_START)
+:- % there is an edge for which no other edge has an lessor distance
+lookup(data:vertex(Q0,START0,CURRENT)) ,
+lookup(data:edge(Q0,START0,CURRENT,DISTANCE_FROM_START)) ,
++
+(
+	lookup(data:vertex(Q0,START0,OTHER)) ,
+	lookup(data:edge(Q0,START0,OTHER,DISTANCE_COMPARE)) ,
+	DISTANCE_COMPARE &lt; DISTANCE_FROM_START
+) ,
+!  % only one current vertex at an time .
+.
+
+maybe__update__neighbour(Q0,START0,CURRENT0,NEIGHBOUR0,EXISTING_DISTANCE0,POTENTIAL_DISTANCE0)
+:-
+POTENTIAL_DISTANCE0 &lt; EXISTING_DISTANCE0 -&gt;
+forget(data:edge(Q0,START0,NEIGHBOUR0,_)) ,
+remember(data:edge(Q0,START0,NEIGHBOUR0,POTENTIAL_DISTANCE0)) ,
+forget(data:predecessor(Q0,START0,NEIGHBOUR0,_)) ,
+remember(data:predecessor(Q0,START0,NEIGHBOUR0,CURRENT0)) ;
+true
+.
+
+path(Q0,START0,TARGET0,PATHs)
+:-
+path__of__predecessors(Q0,START0,TARGET0,REVERSE_PATHs) ,
+! ,
+lists:reverse(REVERSE_PATHs,PATHs)
+.
+
+path__of__predecessors(Q0,START0,TARGET0,PATHs)
+:-
+START0 = TARGET0 -&gt;
+PATHs = [segment(TARGET0,0)] ;
+lookup(data:predecessor(Q0,START0,TARGET0,PREDECESSOR)) ,
+lookup(data:edge(Q0,START0,TARGET0,DISTANCE)) ,
+PATHs = [segment(TARGET0,DISTANCE)|PATHs0] ,
+path__of__predecessors(Q0,START0,PREDECESSOR,PATHs0)
+.
+
+remember(TERM)
+:-
+prolog:assertz(TERM)
+.
+
+forget(TERM)
+:-
+prolog:retractall(TERM)
+.
+
+lookup(TERM)
+:-
+prolog:call(TERM)
+.</code></pre>
 </div>
 </div>
 </div>
@@ -643,23 +774,26 @@ forall(QUERY,ASSERT) ,
 row__to__list(ROW,ROWs)
 :-
 ROW=..[_|ROWs]
-.
+.</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_srcsuitecsv_prolog_demo">./src/suite/csv.prolog.demo</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>/*
+?- FILE='data/rosetta.csv' , csv(FILE) , calculate(FILE) , path(FILE,'a','e',PATHs) .
+FILE = 'data/rosetta.csv' ,
+PATHs = [segment(a,0),segment(c,9),segment(f,11),segment(e,20)] .
 
-/*
-?- csv('data/rosetta.csv') .
+?- FILE='data/rosetta.csv' , csv(FILE) , calculate(FILE) , path(FILE,'a','f',PATHs) .
 
-?- listing(data:distance) .
+FILE = 'data/rosetta.csv' ,
+PATHs = [segment(a,0),segment(c,9),segment(f,11)] .
 
 ?-
 */</code></pre>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_demo">demo</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code></code></pre>
 </div>
 </div>
 </div>
@@ -685,7 +819,7 @@ ROW=..[_|ROWs]
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-02 13:13:25 -0500
+Last updated 2020-11-02 13:45:52 -0500
 </div>
 </div>
 </body>
