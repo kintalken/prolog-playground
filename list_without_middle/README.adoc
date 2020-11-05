@@ -1,0 +1,221 @@
+
+# list_without_middle
+:toc:
+:toclevels: 6
+
+## list_without_middle
+
+### question
+
+
+1. Write a function that accepts an list and produces the item at
+the middle of the list .
+For example given `[a,b,c,d,e]` then it will produce `c` .
+2. Write a function that accepts an list and returns an different list
+that is the given list but without the middle item .
+For example given `[a,b,c,d,e]` then it will produce `[a,b,d,e]` .
+
+Note that in both cases if the list is not odd-numbered in length
+the function should return false .
+
+### answer
+
+#### demo
+
+###### ./src/suite/list_middle.prolog.1.demo
+```
+
+/*
+?- list_middle([a,b,c],MIDDLE) .
+MIDDLE = b.
+
+?- list_middle([a,c],MIDDLE).
+false.
+
+?- list_middle([a,b,c,d,e],MIDDLE).
+MIDDLE = c.
+*/
+
+/*
+?- list_middle(LISTs,a).
+LISTs = [a] ;
+LISTs = [_3840, a, _3852] ;
+LISTs = [_3840, _3846, a, _3864, _3870] ;
+LISTs = [_3840, _3846, _3852, a, _3870, _3882, _3888] .%.e.t.c.
+
+?- list_middle(LISTs,MIDDLE).
+LISTs = [MIDDLE] ;
+LISTs = [_3870, MIDDLE, _3882] ;
+LISTs = [_3870, _3876, MIDDLE, _3894, _3900] ;
+LISTs = [_3870, _3876, _3882, MIDDLE, _3900, _3912, _3918] .%.e.t.c.
+
+?- 
+*/
+
+```
+
+###### ./src/suite/list_without_middle.prolog.1.demo
+```
+
+/*
+?- list_without_middle([a,b,c],Ys).
+Ys = [a, c].
+
+?- list_without_middle([a,c],Ys).
+false.
+
+?- list_without_middle([a,b,c,d,e],Ys).
+Ys = [a, b, d, e].
+
+?- list_without_middle([],Ys).
+false.
+
+?- list_without_middle([a],Ys).
+Ys = [].
+
+?- 
+*/
+
+/*
+?- list_without_middle(Xs,Ys) .
+Xs = [_924],
+Ys = [] ;
+Xs = [_924, _930, _936],
+Ys = [_924, _936] ;
+Xs = [_924, _930, _936, _948, _954],
+Ys = [_924, _930, _948, _954] %.e.t.c.
+
+?- 
+*/
+
+```
+
+#### source
+
+###### ./src/suite.prolog
+```
+
+:- ['./suite/list_middle.prolog'] .
+:- ['./suite/list_without_middle.prolog'] .
+```
+
+###### ./src/suite/list_middle.prolog
+```
+
+%!  list_middle(LISTs,MIDDLE)
+
+list_middle(LISTs,MIDDLE)
+:-
+list_middle(LISTs,MIDDLE,_PREFIXs_,_SUFFIXs_)
+.
+
+%!  list_middle(LISTs,MIDDLE,PREFIXs,SUFFIXs)
+
+list_middle([ITEM|LISTs],MIDDLE,PREFIXs,SUFFIXs)
+:-
+list_middle(LISTs,LISTs,ITEM,MIDDLE,PREFIXs,SUFFIXs)
+.
+
+%!  list_middle(FASTs,SLOWs,ITEM,MIDDLE,PREFIXs,SUFFIXs)
+
+list_middle([],SLOWs,ITEM,ITEM,[],SLOWs) .
+
+list_middle([_,_|FASTs],[ITEM|SLOWs],PREVIOUS_ITEM,MIDDLE,[PREVIOUS_ITEM|PREFIXs],SUFFIXs)
+:-
+list_middle(FASTs,SLOWs,ITEM,MIDDLE,PREFIXs,SUFFIXs)
+.
+
+```
+
+###### ./src/suite/list_without_middle.prolog
+```
+
+%! list_without_middle(SOURCEs,TARGETs)
+
+list_without_middle(SOURCEs,TARGETs)
+:-
+list_middle(SOURCEs,_MIDDLE_,PREFIXs,SUFFIXs) ,
+lists:append(PREFIXs,SUFFIXs,TARGETs)
+.
+
+```
+
+#### tests
+
+###### ./tests/suite/list_middle.prolog
+```
+
+:- begin_tests(list_middle) .
+
+test('1',[])
+:-
+list_middle([a,b,c],b)
+.
+
+test('2',[])
+:-
+list_middle([a,b,c],b,[a],[c])
+.
+
+test('3',[fail])
+:-
+list_middle([a,c],_,_,_)
+.
+
+test('4',[])
+:-
+list_middle([a,b,c,d,e],c,[a,b],[d,e])
+.
+
+test('5',[fail])
+:-
+list_middle([],_,_,_)
+.
+
+test('6',[])
+:-
+list_middle([a],a,[],[])
+.
+
+:- end_tests(list_middle) .
+```
+
+###### ./tests/suite/list_without_middle.prolog
+```
+
+:- begin_tests(list_without_middle) .
+
+test('1',[])
+:-
+list_without_middle([a,b,c],[a,c])
+.
+
+test('2',[fail])
+:-
+list_without_middle([a,c],_)
+.
+
+test('3',[])
+:-
+list_without_middle([a,b,c,d,e],[a,b,d,e])
+.
+
+test('4',[fail])
+:-
+list_without_middle([],_)
+.
+
+test('5',[])
+:-
+list_without_middle([a],[])
+.
+
+:- end_tests(list_without_middle) .
+
+```
+
+## appendix
+
+### authorship
+
+* (c) kintalken@gmail.com 2020-11-05 .

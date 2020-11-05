@@ -1,0 +1,68 @@
+
+# list_without_middle
+:toc:
+:toclevels: 6
+
+## list_without_middle
+
+### question
+
+
+1. Write a function that accepts an list and produces the item at
+the middle of the list .
+For example given `[a,b,c,d,e]` then it will produce `c` .
+2. Write a function that accepts an list and returns an different list
+that is the given list but without the middle item .
+For example given `[a,b,c,d,e]` then it will produce `[a,b,d,e]` .
+
+Note that in both cases if the list is not odd-numbered in length
+the function should return false .
+
+### answer
+
+#### demo
+
+###### ./src/suite/list_middle.prolog.1.demo
+```
+#include ./src/suite/list_middle.prolog.1.demo
+```
+
+###### ./src/suite/list_without_middle.prolog.1.demo
+```
+#include ./src/suite/list_without_middle.prolog.1.demo
+```
+
+#### source
+
+###### ./src/suite.prolog
+```
+#include ./src/suite.prolog
+```
+
+###### ./src/suite/list_middle.prolog
+```
+#include ./src/suite/list_middle.prolog
+```
+
+###### ./src/suite/list_without_middle.prolog
+```
+#include ./src/suite/list_without_middle.prolog
+```
+
+#### tests
+
+###### ./tests/suite/list_middle.prolog
+```
+#include ./tests/suite/list_middle.prolog
+```
+
+###### ./tests/suite/list_without_middle.prolog
+```
+#include ./tests/suite/list_without_middle.prolog
+```
+
+## appendix
+
+### authorship
+
+* (c) kintalken@gmail.com 2020-11-05 .

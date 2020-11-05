@@ -1,0 +1,35 @@
+
+/*
+?- list_without_middle([a,b,c],Ys).
+Ys = [a, c].
+
+?- list_without_middle([a,c],Ys).
+false.
+
+?- list_without_middle([a,b,c,d,e],Ys).
+Ys = [a, b, d, e].
+
+?- list_without_middle([],Ys).
+false.
+
+?- list_without_middle([a],Ys).
+Ys = [].
+
+?- 
+*/
+
+/*
+?- list_without_middle(Xs,Ys) .
+Xs = [_924],
+Ys = [] ;
+Xs = [_924, _930, _936],
+Ys = [_924, _936] ;
+Xs = [_924, _930, _936, _948, _954],
+Ys = [_924, _930, _948, _954] %.e.t.c.
+
+?- list_without_middle(Xs,[a,c]) .
+Xs = [a, _4496, c] ;
+ERROR: Out of global stack
+?- 
+*/
+

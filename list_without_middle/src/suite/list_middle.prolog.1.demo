@@ -1,0 +1,28 @@
+
+/*
+?- list_middle([a,b,c],MIDDLE) .
+MIDDLE = b.
+
+?- list_middle([a,c],MIDDLE).
+false.
+
+?- list_middle([a,b,c,d,e],MIDDLE).
+MIDDLE = c.
+*/
+
+/*
+?- list_middle(LISTs,a).
+LISTs = [a] ;
+LISTs = [_3840, a, _3852] ;
+LISTs = [_3840, _3846, a, _3864, _3870] ;
+LISTs = [_3840, _3846, _3852, a, _3870, _3882, _3888] .%.e.t.c.
+
+?- list_middle(LISTs,MIDDLE).
+LISTs = [MIDDLE] ;
+LISTs = [_3870, MIDDLE, _3882] ;
+LISTs = [_3870, _3876, MIDDLE, _3894, _3900] ;
+LISTs = [_3870, _3876, _3882, MIDDLE, _3900, _3912, _3918] .%.e.t.c.
+
+?- 
+*/
+

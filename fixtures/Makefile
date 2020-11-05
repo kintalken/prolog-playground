@@ -3,16 +3,18 @@ PROJECT_NAME=$(notdir $(basename $(shell pwd)))
 
 .PHONY : all demo test clean doc src tests
 
-all : dirs banner src test doc
+all : dirs banner src doc test
 
 dirs :
 	@mkdir -p src
+	@mkdir -p src/suite
 	@mkdir -p tests
+	@mkdir -p tests/suite
 
 banner :
 	@echo "PROJECT_NAME=$(PROJECT_NAME)"
 
-demo : src doc test
+demo : src doc
 	swipl -q -l src/suite.prolog
 
 test : tests
@@ -32,7 +34,7 @@ src : Makefile
 
 src : $(wildcard src/*) $(wildcard src/suite/*)
 
-tests : tests/suite.prolog
+tests : tests/suite.prolog tests/suite/basic.prolog
 
 tests : $(wildcard tests/*) $(wildcard tests/suite/*) $(wildcard tests/fixtures/*)
 
@@ -78,16 +80,25 @@ define WRITE_README_DEFAULT_FILE
 
 ### answer
 
-###### ./src/suite.prolog
+#### demo
+
+###### ./src/suite/main.prolog.1.demo
 ```
-#include ./src/suite.prolog
+#include ./src/suite/main.prolog.1.demo
+```
+
+#### source
+
+###### ./src/suite/main.prolog
+```
+#include ./src/suite/main.prolog
 ```
 
 #### tests
 
-###### ./tests/suite.prolog
+###### ./tests/suite/basic.prolog
 ```
-#include ./tests/suite.prolog
+#include ./tests/suite/basic.prolog
 ```
 
 ## appendix
@@ -103,7 +114,7 @@ README.adoc.in :
 
 define WRITE_SRC_SUITE_DEFAULT_FILE
 
-:- ['./suite/$(PROJECT_NAME).prolog'] .
+:- ['./suite/main.prolog'] .
 
 endef
 
@@ -114,12 +125,21 @@ define WRITE_TESTS_SUITE_DEFAULT_FILE
 
 :- ['./../src/suite.prolog'] .
 
-:- begin_tests(basic) .
-
-:- end_tests(basic) .
+:- ['./suite/basic.prolog'] .
 
 endef
 
 tests/suite.prolog :
 	$(file >>tests/suite.prolog,$(WRITE_TESTS_SUITE_DEFAULT_FILE))
+
+define WRITE_TESTS_SUITE_BASIC_DEFAULT_FILE
+
+:- begin_tests(basic)
+
+:- end_tests(basic)
+
+endef
+
+tests/suite/basic.prolog :
+	$(file >>tests/suite/basic.prolog,$(WRITE_TESTS_SUITE_BASIC_DEFAULT_FILE))
 
